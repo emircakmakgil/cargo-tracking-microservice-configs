@@ -1,0 +1,7 @@
+#benim bilgisayarım
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5433/shipment-service"
+    username: postgres
+    password: test

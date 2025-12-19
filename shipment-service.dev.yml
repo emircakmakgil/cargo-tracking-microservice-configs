@@ -1,0 +1,6 @@
+#docker olsun
+spring:
+  datasource:
+    url: "jdbc:postgresql://pg-1:5433/shipment-service"
+    username: postgres
+    password: test

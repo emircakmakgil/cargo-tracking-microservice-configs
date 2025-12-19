@@ -1,0 +1,6 @@
+#k8s olsun
+spring:
+    datasource:
+      url: "jdbc:postgresql://pg-service:5433/shipment-service"
+      username: postgres
+      password: test
