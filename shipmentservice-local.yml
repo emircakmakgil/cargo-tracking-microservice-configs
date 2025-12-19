@@ -5,10 +5,15 @@ spring:
     url: "jdbc:postgresql://localhost:5433/shipment-service"
     username: postgres
     password: test
+    driver-class-name: org.postgresql.Driver
+
   jpa:
-    showSql: true
     hibernate:
-      ddlAuto: update
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
   cloud:
     stream:
       defaultBinder: kafka
