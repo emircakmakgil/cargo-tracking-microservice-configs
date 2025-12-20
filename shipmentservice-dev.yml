@@ -2,7 +2,7 @@ spring:
   application:
     name: shipment-service
   datasource:
-    url: "jdbc:postgresql://shipment-service:5432/shipment_service"
+    url: "jdbc:postgresql://pg-2:5432/shipment_service"
   jpa:
     hibernate:
       ddl-auto: update
