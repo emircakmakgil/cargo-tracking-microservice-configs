@@ -1,16 +1,20 @@
-#docker olsun
 spring:
   datasource:
-    url: "jdbc:postgresql://pg-2:5433/shipment-service"
+    # Docker ağında servisler birbirine servis adıyla bağlanır (pg-2) 
+    # ve iç portu (5432) kullanırlar.
+    url: "jdbc:postgresql://pg-2:5432/shipment-service"
     username: postgres
     password: test
   jpa:
-    showSql: true
+    show-sql: true
     hibernate:
-      ddlAuto: update
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   cloud:
     stream:
-      defaultBinder: kafka
+      default-binder: kafka
       function:
         definition: shipmentCreatedFunction
       bindings:
@@ -19,13 +23,14 @@ spring:
           content-type: application/json
       kafka:
         binder:
-          brokers: localhost
-          defaultBrokerPort: 9092
+          # 'localhost' yerine docker-compose'daki kafka servis adını yazmalısın
+          brokers: kafka:9092
 server:
   port: 8083
 eureka:
   client:
     service-url:
+      # 'eureka' servis adının docker-compose ile eşleştiğinden emin ol
       defaultZone: "http://eureka:8888/eureka/"
     register-with-eureka: true
     fetch-registry: true
