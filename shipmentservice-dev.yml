@@ -1,8 +1,6 @@
 spring:
   datasource:
-    # Docker ağında servisler birbirine servis adıyla bağlanır (pg-2) 
-    # ve iç portu (5432) kullanırlar.
-    url: "jdbc:postgresql://pg-2:5432/shipment-service"
+    url: "jdbc:postgresql://pg-2:5433/shipment-service"
     username: postgres
     password: test
   jpa:
