@@ -1,18 +1,18 @@
 spring:
+  application:
+    name: shipment-service
   datasource:
-    url: jdbc:postgresql://pg-2:5432/shipment-service
-    username: postgres
-    password: test
+    url: "jdbc:postgresql://shipment-service:5432/shipment_service"
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
   cloud:
     stream:
-      default-binder: kafka
+      defaultBinder: kafka
       function:
         definition: shipmentCreatedFunction
       bindings:
@@ -21,14 +21,15 @@ spring:
           content-type: application/json
       kafka:
         binder:
-          # 'localhost' yerine docker-compose'daki kafka servis adını yazmalısın
-          brokers: kafka:9092
-server:
-  port: 8083
-eureka:
-  client:
-    service-url:
-      # 'eureka' servis adının docker-compose ile eşleştiğinden emin ol
-      defaultZone: "http://eureka:8888/eureka/"
-    register-with-eureka: true
-    fetch-registry: true
+          brokers: localhost
+          defaultBrokerPort: 9092
+  server:
+    port: 8083
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: "http://localhost:8888/eureka/"
+      register-with-eureka: true
+      fetch-registry: true
+
