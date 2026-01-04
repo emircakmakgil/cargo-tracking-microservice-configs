@@ -1,32 +1,67 @@
-#benim bilgisayarım
-
 spring:
+  application:
+    name: "shipment-service"
+  messages:
+    basename: messages
+  kafka:
+    bootstrap-servers: localhost:59092
+    admin:
+      properties:
+        bootstrap.servers: localhost:59092
+    producer:
+      bootstrap-servers: localhost:59092
   datasource:
-    url: "jdbc:postgresql://localhost:5433/shipment-service"
+    url: jdbc:postgresql://localhost:5433/shipment-service
     username: postgres
     password: test
+    elasticsearch:
+      client:
+        elasticsearch:
+          uris: http://localhost:9200
+
+
   jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    showSql: true
-    hibernate:
-      ddlAuto: update
-  cloud:
-    stream:
-      defaultBinder: kafka
-      function:
-        definition: shipmentCreatedFunction
-      bindings:
-        shipmentCreatedFunction-out-0:
-          destination: shipment-topic
-          content-type: application/json
-      kafka:
-        binder:
-          brokers: localhost
-          defaultBrokerPort: 9092
+
+  mvc:
+    locale: tr
+    locale-resolver: accept-header
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracking:
+    sampling:
+      probablity: 1.0 #trace ediceğim miktar oran
+  zipkin:
+    tracking:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+
+
+
 server:
   port: 8083
+
+
 
 eureka:
   client:
@@ -34,4 +69,3 @@ eureka:
       defaultZone: "http://localhost:8888/eureka/"
     register-with-eureka: true
     fetch-registry: true
-

@@ -1,17 +1,67 @@
 spring:
   application:
     name: "shipment-service"
-
+  messages:
+    basename: messages
+  kafka:
+    bootstrap-servers: localhost:59092
+    admin:
+      properties:
+        bootstrap.servers: localhost:59092
+    producer:
+      bootstrap-servers: localhost:59092
   datasource:
-    url: "jdbc:postgresql://pg-2:5432/shipment-service"
+    url: jdbc:postgresql://localhost:5433/shipment-service
     username: postgres
     password: test
+    elasticsearch:
+      client:
+        elasticsearch:
+          uris: http://localhost:9200
+
+
   jpa:
-    showSql: true
+    show-sql: true
     hibernate:
-      ddlAuto: update
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mvc:
+    locale: tr
+    locale-resolver: accept-header
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracking:
+    sampling:
+      probablity: 1.0 #trace ediceğim miktar oran
+  zipkin:
+    tracking:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+
+
+
 server:
   port: 8083
+
+
 
 eureka:
   client:
