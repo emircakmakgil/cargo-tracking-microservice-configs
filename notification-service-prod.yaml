@@ -1,0 +1,64 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:59092
+  application:
+    name: "notification-service"
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/notification-service?authSource=admin
+  mvc:
+    locale: tr
+    locale-resolver: accept-header
+
+  main:
+    allow-bean-definition-overriding: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: emircakmakgil6@gmail.com            # Gmail adresin
+    password: myhkyiuwwfcawvpw    # Gmail'den aldığın uygulama şifresi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls: #şifrelenmesi için
+            enable: true
+
+kafka:
+  topics:
+    shipmentCreatedTopic: shipment-created-notification-topic
+    shipmentUpdatedTopic: shipment-updated-notification-topic
+    slaViolatedTopic: sla-violated-topic
+
+server:
+  port:8081
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracking:
+    sampling:
+      probablity: 1.0 #trace ediceğim miktar oran
+  zipkin:
+    tracking:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://localhost:8888/eureka/"
+    register-with-eureka: true
+    fetch-registry: true
