@@ -13,18 +13,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: emircakmakgil6@gmail.com            # Gmail adresin
-    password: myhkyiuwwfcawvpw    # Gmail'den aldığın uygulama şifresi
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls: #şifrelenmesi için
-            enable: true
-
 kafka:
   topics:
     shipmentCreatedTopic: shipment-created-notification-topic
