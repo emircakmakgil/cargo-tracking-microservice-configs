@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: tracking-service
+  kafka:
+    bootstrap-servers: localhost:59092
+    admin:
+      properties:
+        bootstrap.servers: localhost:59092
+    producer:
+      bootstrap-servers: localhost:59092
+    consumer:
+      group-id: tracking-service-group
+      auto-offset-reset: earliest
+
+  mvc:
+    locale: tr
+    locale-resolver: accept-header
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5435/tracking-service
+    username: postgres
+    password: test
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+kafka:
+  topics:
+    shipmentCreatedTopic: shipment-created-topic
+    shipmentUpdatedTopic: shipment-updated-topic
+
+
+
+server:
+  port: 8082
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracking:
+    sampling:
+      probablity: 1.0 #trace ediceğim miktar oran
+  zipkin:
+    tracking:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/
+    register-with-eureka: true
+    fetch-registry: true
